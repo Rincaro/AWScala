@@ -113,7 +113,7 @@ trait EC2 extends aws.AmazonEC2 {
   }
   
   def tags(filters: Seq[aws.model.Filter] = Nil) : Seq[aws.model.TagDescription] = {
-    import com.amazonaws.services.ec2.model.DescribeTagsResult
+    import aws.model.DescribeTagsResult
     object tagsSequencer extends Sequencer[aws.model.TagDescription,DescribeTagsResult,String] {
       val baseRequest = new aws.model.DescribeTagsRequest().withFilters(filters.asJava)
       def getInitial = describeTags(baseRequest)
@@ -125,7 +125,7 @@ trait EC2 extends aws.AmazonEC2 {
   }
  
   def instanceStatuses(includeAll: Boolean = false, instanceIds: Seq[String] = Nil, filters: Seq[aws.model.Filter] = Nil): Seq[aws.model.InstanceStatus] = {
-    import com.amazonaws.services.ec2.model.DescribeInstanceStatusResult
+    import aws.model.DescribeInstanceStatusResult
 
     object instanceStatusSequencer extends Sequencer[aws.model.InstanceStatus,DescribeInstanceStatusResult,String] {
       val baseRequest = new aws.model.DescribeInstanceStatusRequest().withIncludeAllInstances(includeAll).withInstanceIds(instanceIds.asJava).withFilters(filters.asJava)
@@ -138,7 +138,7 @@ trait EC2 extends aws.AmazonEC2 {
   }
   
   def reservedInstanceOfferings(availabilityZone: Option[String] = None, filters: Seq[aws.model.Filter] = Nil): Seq[aws.model.ReservedInstancesOffering] = {
-    import com.amazonaws.services.ec2.model.DescribeReservedInstancesOfferingsResult
+    import aws.model.DescribeReservedInstancesOfferingsResult
 
     object reservedSequencer extends Sequencer[aws.model.ReservedInstancesOffering,DescribeReservedInstancesOfferingsResult,String] {
       val baseRequest = new aws.model.DescribeReservedInstancesOfferingsRequest().withFilters(filters.asJava)
